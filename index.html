@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multistream.bdj</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: #2F2F2F;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        body.light-mode {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: #6C6C6C;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        body.light-mode .header {
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        h1 {
+            color: #f0f0f0;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+
+        body.light-mode h1 {
+            color: #333;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        input, button {
+            padding: 10px 18px;
+            border: 2px solid #666;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        input {
+            flex: 1;
+            min-width: 200px;
+            background: #6C6C6C;
+            color: #f0f0f0;
+        }
+
+        body.light-mode input {
+            background: white;
+            color: #333;
+        }
+
+        input::placeholder {
+            color: #bbb;
+        }
+
+        body.light-mode input::placeholder {
+            color: #999;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .streams-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .stream-tag {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            cursor: grab;
+            user-select: none;
+        }
+
+        .stream-tag:active {
+            cursor: grabbing;
+        }
+
+        .stream-tag.dragging {
+            opacity: 0.5;
+        }
+
+        .stream-tag .platform {
+            background: rgba(255, 255, 255, 0.3);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .platform-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .platform-dot.twitch {
+            background: #9146ff;
+        }
+
+        .platform-dot.kick {
+            background: #53fc18;
+        }
+
+        .stream-tag button {
+            background: rgba(255, 255, 255, 0.3);
+            border: none;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .stream-tag button:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .layout-section {
+            margin-bottom: 12px;
+        }
+
+        .layout-label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #f0f0f0;
+            font-size: 14px;
+        }
+
+        body.light-mode .layout-label {
+            color: #333;
+        }
+
+        .layout-grid {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .layout-btn {
+            padding: 10px 16px;
+            background: #6C6C6C;
+            border: 2px solid #667eea;
+            color: #f0f0f0;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            min-width: 70px;
+            font-size: 14px;
+        }
+
+        body.light-mode .layout-btn {
+            background: white;
+            color: #667eea;
+        }
+
+        .layout-btn:hover {
+            background: #707070;
+        }
+
+        body.light-mode .layout-btn:hover {
+            background: #f0f0f0;
+        }
+
+        .layout-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .chat-selector {
+            background: rgba(145, 70, 255, 0.1);
+            border: 2px solid #9146ff;
+            padding: 12px;
+            border-radius: 10px;
+            margin-top: 12px;
+        }
+
+        .chat-selector-label {
+            font-weight: bold;
+            color: #f0f0f0;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        body.light-mode .chat-selector-label {
+            color: #333;
+        }
+
+        .chat-options {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .chat-option-btn {
+            padding: 8px 14px;
+            background: #6C6C6C;
+            border: 2px solid #9146ff;
+            color: #f0f0f0;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        body.light-mode .chat-option-btn {
+            background: white;
+            color: #9146ff;
+        }
+
+        .chat-option-btn:hover {
+            background: rgba(145, 70, 255, 0.2);
+        }
+
+        .chat-option-btn.active {
+            background: #9146ff;
+            color: white;
+        }
+
+        .main-content {
+            display: flex;
+            gap: 10px;
+            background: rgba(80, 80, 80, 0.3);
+            padding: 10px;
+            border-radius: 15px;
+            min-height: 600px;
+        }
+
+        body.light-mode .main-content {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .streams-grid {
+            flex: 1;
+            display: grid;
+            gap: 10px;
+        }
+
+        .chat-column {
+            width: 420px;
+            background: #18181b;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .chat-column iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .stream-frame {
+            background: #000;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .stream-frame iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            padding: 60px 20px;
+            flex: 1;
+        }
+
+        .empty-state h2 {
+            font-size: 2em;
+            margin-bottom: 15px;
+        }
+
+        .empty-state p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .platform-note {
+            font-size: 13px;
+            color: #ccc;
+            margin-top: 8px;
+        }
+
+        body.light-mode .platform-note {
+            color: #666;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.5em;
+            }
+
+            .input-group {
+                flex-direction: column;
+            }
+
+            input, button {
+                width: 100%;
+            }
+
+            .main-content {
+                flex-direction: column;
+            }
+
+            .chat-column {
+                width: 100%;
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()">
+        <span id="themeText">Modo Claro</span>
+    </button>
+    
+    <div class="container">
+        <div class="header">
+            <h1>📡 Multistream.bdj</h1>
+            
+            <div class="input-group">
+                <input type="text" id="channelInput" placeholder="Nome do canal ou link (Twitch/Kick)">
+                <button onclick="addStream()">Adicionar Stream</button>
+            </div>
+            <div class="platform-note">💜 Twitch: twitch.tv/canal | 💚 Kick: kick.com/canal</div>
+
+            <div class="streams-list" id="streamsList"></div>
+
+            <div class="layout-section">
+                <div class="layout-label">Layout das Streams:</div>
+                <div class="layout-grid">
+                    <button class="layout-btn" onclick="setLayout(1)">1 Stream</button>
+                    <button class="layout-btn" onclick="setLayout(2)">2 Streams</button>
+                    <button class="layout-btn" onclick="setLayout(3)">3 Streams</button>
+                    <button class="layout-btn" onclick="setLayout(4)">4 Streams</button>
+                    <button class="layout-btn" onclick="setLayout(5)">5 Streams</button>
+                    <button class="layout-btn active" onclick="setLayout(6)">6 Streams</button>
+                </div>
+            </div>
+
+            <div class="chat-selector" id="chatSelector" style="display: none;">
+                <div class="chat-selector-label">💬 Adicionar Chat Lateral:</div>
+                <div style="margin-bottom: 8px; font-size: 13px; color: #ccc;">Escolha de qual canal exibir o chat</div>
+                <div class="chat-options" id="chatOptions"></div>
+            </div>
+        </div>
+
+        <div class="main-content" id="mainContent">
+            <div class="empty-state">
+                <h2>Nenhuma stream adicionada</h2>
+                <p>Adicione canais da Twitch ou Kick para começar</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let streams = [
+            { platform: 'twitch', channel: 'jonvlogs' },
+            { platform: 'twitch', channel: 'sheviii2k' },
+            { platform: 'twitch', channel: 'linsjr' },
+            { platform: 'kick', channel: 'eusheviii2k' },
+            { platform: 'kick', channel: 'linsjr' },
+            { platform: 'kick', channel: 'stereonline' }
+        ];
+        let currentGridSize = 6;
+        let showChat = false;
+        let selectedChatStream = 0;
+        let draggedIndex = null;
+        let isDarkMode = true;
+
+        function toggleTheme() {
+            isDarkMode = !isDarkMode;
+            document.body.classList.toggle('light-mode');
+            document.getElementById('themeText').textContent = isDarkMode ? 'Modo Claro' : 'Modo Escuro';
+        }
+
+        function detectPlatform(input) {
+            if (input.includes('kick.com')) {
+                const match = input.match(/kick\.com\/([a-zA-Z0-9_-]+)/);
+                return match ? { platform: 'kick', channel: match[1] } : null;
+            }
+
+            if (input.includes('twitch.tv') && !input.includes('/videos/')) {
+                const match = input.match(/twitch\.tv\/([a-zA-Z0-9_]+)/);
+                return match ? { platform: 'twitch', channel: match[1] } : null;
+            }
+
+            const cleanChannel = input.replace(/[^a-zA-Z0-9_-]/g, '');
+            return cleanChannel ? { platform: 'twitch', channel: cleanChannel } : null;
+        }
+
+        function addStream() {
+            const input = document.getElementById('channelInput').value.trim();
+
+            if (!input) {
+                alert('Por favor, digite o nome do canal ou cole o link');
+                return;
+            }
+
+            const detected = detectPlatform(input);
+
+            if (!detected) {
+                alert('Link ou nome de canal inválido');
+                return;
+            }
+
+            const streamExists = streams.some(s => 
+                s.channel.toLowerCase() === detected.channel.toLowerCase() &&
+                s.platform === detected.platform
+            );
+
+            if (streamExists) {
+                alert('Esta stream já foi adicionada!');
+                return;
+            }
+
+            streams.push(detected);
+            document.getElementById('channelInput').value = '';
+            render();
+        }
+
+        function removeStream(index) {
+            streams.splice(index, 1);
+            if (selectedChatStream >= streams.length) {
+                selectedChatStream = Math.max(0, streams.length - 1);
+            }
+            render();
+        }
+
+        function updateStreamsList() {
+            const streamsList = document.getElementById('streamsList');
+            streamsList.innerHTML = streams.map((stream, index) => `
+                <div class="stream-tag" draggable="true" data-index="${index}">
+                    <span class="platform">
+                        <span class="platform-dot ${stream.platform}"></span>
+                        ${stream.platform.toUpperCase()}
+                    </span>
+                    <span>${stream.channel}</span>
+                    <button onclick="event.stopPropagation(); removeStream(${index})">×</button>
+                </div>
+            `).join('');
+            
+            streamsList.querySelectorAll('.stream-tag').forEach(tag => {
+                tag.ondragstart = (e) => {
+                    draggedIndex = parseInt(e.target.getAttribute('data-index'));
+                    e.target.classList.add('dragging');
+                };
+                tag.ondragover = (e) => e.preventDefault();
+                tag.ondrop = (e) => {
+                    e.stopPropagation();
+                    const dropIndex = parseInt(e.target.closest('.stream-tag').getAttribute('data-index'));
+                    
+                    if (draggedIndex !== dropIndex) {
+                        const [draggedStream] = streams.splice(draggedIndex, 1);
+                        streams.splice(dropIndex, 0, draggedStream);
+                        
+                        if (selectedChatStream === draggedIndex) {
+                            selectedChatStream = dropIndex;
+                        } else if (draggedIndex < selectedChatStream && dropIndex >= selectedChatStream) {
+                            selectedChatStream--;
+                        } else if (draggedIndex > selectedChatStream && dropIndex <= selectedChatStream) {
+                            selectedChatStream++;
+                        }
+                        
+                        render();
+                    }
+                };
+                tag.ondragend = (e) => {
+                    e.target.classList.remove('dragging');
+                    draggedIndex = null;
+                };
+            });
+        }
+
+        function setLayout(gridSize) {
+            currentGridSize = gridSize;
+            document.querySelectorAll('.layout-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            render();
+        }
+
+        function selectChatStream(index) {
+            selectedChatStream = index;
+            showChat = true;
+            updateChatOptions();
+            updateChat();
+        }
+
+        function disableChat() {
+            showChat = false;
+            updateChatOptions();
+            updateChat();
+        }
+
+        function updateChatOptions() {
+            const chatOptions = document.getElementById('chatOptions');
+            const chatSelector = document.getElementById('chatSelector');
+            
+            chatSelector.style.display = streams.length ? 'block' : 'none';
+            
+            if (streams.length) {
+                chatOptions.innerHTML = `
+                    <button class="chat-option-btn ${!showChat ? 'active' : ''}" onclick="disableChat()">Sem Chat</button>
+                    ${streams.map((stream, index) => `
+                        <button class="chat-option-btn ${showChat && selectedChatStream === index ? 'active' : ''}" 
+                                onclick="selectChatStream(${index})">
+                            Chat: ${stream.channel} (${stream.platform.toUpperCase()})
+                        </button>
+                    `).join('')}
+                `;
+            }
+        }
+
+        function getPlayerUrl(stream) {
+            return stream.platform === 'kick' 
+                ? `https://player.kick.com/${stream.channel}?autoplay=true`
+                : `https://player.twitch.tv/?channel=${stream.channel}&parent=${location.hostname}&muted=false`;
+        }
+
+        function getChatUrl(stream) {
+            return stream.platform === 'kick'
+                ? `https://kick.com/${stream.channel}/chatroom`
+                : `https://www.twitch.tv/embed/${stream.channel}/chat?parent=${location.hostname}&darkpopout`;
+        }
+
+        function updateChat() {
+            const mainContent = document.getElementById('mainContent');
+            let chatColumn = mainContent.querySelector('.chat-column');
+            
+            if (showChat && streams[selectedChatStream]) {
+                const chatUrl = getChatUrl(streams[selectedChatStream]);
+                
+                if (chatColumn) {
+                    chatColumn.innerHTML = `<iframe src="${chatUrl}"></iframe>`;
+                } else {
+                    chatColumn = document.createElement('div');
+                    chatColumn.className = 'chat-column';
+                    chatColumn.innerHTML = `<iframe src="${chatUrl}"></iframe>`;
+                    mainContent.appendChild(chatColumn);
+                }
+            } else if (chatColumn) {
+                chatColumn.remove();
+            }
+        }
+
+        function updateStreamsGrid() {
+            const mainContent = document.getElementById('mainContent');
+
+            if (!streams.length) {
+                mainContent.innerHTML = `
+                    <div class="empty-state">
+                        <h2>Nenhuma stream adicionada</h2>
+                        <p>Adicione canais da Twitch ou Kick para começar</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const displayCount = Math.min(currentGridSize, streams.length);
+            const gridConfig = {
+                1: [1, 1], 2: [2, 1], 3: [3, 1],
+                4: [2, 2], 5: [3, 2], 6: [3, 2]
+            };
+            const [cols, rows] = gridConfig[displayCount] || [2, Math.ceil(displayCount / 2)];
+
+            let streamsGrid = mainContent.querySelector('.streams-grid');
+            if (!streamsGrid) {
+                streamsGrid = document.createElement('div');
+                streamsGrid.className = 'streams-grid';
+                mainContent.innerHTML = '';
+                mainContent.appendChild(streamsGrid);
+            }
+
+            streamsGrid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+            streamsGrid.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
+
+            streamsGrid.innerHTML = streams.slice(0, displayCount).map(stream => `
+                <div class="stream-frame">
+                    <iframe src="${getPlayerUrl(stream)}" allowfullscreen allow="autoplay; fullscreen"></iframe>
+                </div>
+            `).join('');
+
+            updateChat();
+        }
+
+        function render() {
+            updateStreamsList();
+            updateChatOptions();
+            updateStreamsGrid();
+        }
+
+        document.getElementById('channelInput').onkeypress = (e) => {
+            if (e.key === 'Enter') addStream();
+        };
+
+        window.onload = render;
+    </script>
+</body>
+</html>
