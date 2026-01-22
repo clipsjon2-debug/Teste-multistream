@@ -1,11 +1,1193 @@
-<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Multistream</title><style>*{margin:0;padding:0;box-sizing:border-box}body{background:#2f2f2f;font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif;min-height:100vh;padding:20px}.grid{display:grid;gap:10px}.frame{background:#000;border-radius:10px;overflow:hidden}.frame iframe{width:100%;height:100%;border:none}</style></head><body><div id="app"></div><script>
-var _0x5a1c=['appendChild','createElement','iframe','src','https://player.kick.com/','https://player.twitch.tv/?channel=','&parent=','location','hostname','style','gridTemplateColumns','repeat','querySelector','innerHTML','className'];(function(_0x3d2f,_0x5a1c){var _0x7c21=function(_0x19fa){while(--_0x19fa){_0x3d2f.push(_0x3d2f.shift())}};_0x7c21(++_0x5a1c)}(_0x5a1c,0x15));var _0x7c21=function(_0x3d2f,_0x19fa){_0x3d2f=_0x3d2f-0x0;return _0x5a1c[_0x3d2f]};
-var s=[{p:'twitch',c:'gabepeixe'},{p:'twitch',c:'loud_coringa'},{p:'kick',c:'gabepeixe'}];
-var a=document[_0x7c21('0xc')]('#app');
-function r(){var g=document[_0x7c21('0x1')]('div');g[_0x7c21('0xe')]='grid';g[_0x7c21('0x9')][_0x7c21('0xa')]=_0x7c21('0xb')+'(3,1fr)';
-s.forEach(function(x){var f=document[_0x7c21('0x1')]('div');f[_0x7c21('0xe')]='frame';var i=document[_0x7c21('0x1')](_0x7c21('0x2'));
-i[_0x7c21('0x3')]=x.p==='kick'?_0x7c21('0x4')+x.c:_0x7c21('0x5')+x.c+_0x7c21('0x6')+window[_0x7c21('0x7')][_0x7c21('0x8')];
-f[_0x7c21('0x0')](i);g[_0x7c21('0x0')](f)});
-a[_0x7c21('0xd')]='';a[_0x7c21('0x0')](g)}
-r();
-</script></body></html>
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <!-- SEO & Meta Tags Principais -->
+    <meta name="description" content="Portal Oficial BDJ Multiview. Assista Jon Vlogs, FontinnelleRJ, Marcove e JhowRJ1 simultaneamente. O maior hub de conteúdo IRL, games e lifestyle do Brasil.">
+    <meta name="keywords" content="BDJ, Jon Vlogs, Multiview, Twitch, IRL, FontinnelleRJ, Marcove, JhowRJ1, Bonde do Jon, Live, Stream, Tropa do Jon, Reality">
+    <meta name="author" content="BDJ Team">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#00FF40">
+
+    <!-- Open Graph / Facebook / WhatsApp / Discord -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bdj.multiview.com/"> <!-- URL Canônica (Exemplo) -->
+    <meta property="og:title" content="BDJ | Multiview Oficial da Tropa">
+    <meta property="og:description" content="Acompanhe a tropa ao vivo! Jon Vlogs, Fontinnelle, Marcove e Jhow em uma experiência multiview imersiva e interativa.">
+    <meta property="og:image" content="https://i.imgur.com/3EIaZHq.png">
+    <meta property="og:site_name" content="BDJ Multiview">
+    <meta property="og:locale" content="pt_BR">
+
+    <!-- Twitter / X -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://bdj.multiview.com/">
+    <meta property="twitter:title" content="BDJ | Multiview Oficial">
+    <meta property="twitter:description" content="Acompanhe a tropa ao vivo! Jon Vlogs, Fontinnelle, Marcove e Jhow em uma experiência multiview imersiva.">
+    <meta property="twitter:image" content="https://i.imgur.com/3EIaZHq.png">
+    <meta property="twitter:creator" content="@JonVlogs">
+
+    <title>BDJ | Multiview Oficial</title>
+    
+    <!-- Favicon Personalizado BDJ -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect x='2' y='2' width='60' height='60' rx='16' fill='%23020502' stroke='%2300FF40' stroke-width='4'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='Arial, sans-serif' font-weight='900' font-size='24' fill='white' style='text-shadow: 2px 2px 0 %2300FF40;'>BDJ</text></svg>">
+    
+    <!-- React & Tailwind -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module">import { inject } from 'https://esm.sh/@vercel/analytics'; inject({ mode: 'production', debug: false }); console.log("Vercel Analytics Injected");</script>
+    
+    <!-- Twitch Embed API Oficial -->
+    <script src="https://player.twitch.tv/js/embed/v1.js"></script>
+    
+    <!-- Fontes e Ícones -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;900&family=Russo+One&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Bloqueio de Ferramentas de Desenvolvedor (Segurança Básica) -->
+    <script>
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.onkeydown = function(e) {
+            if(e.keyCode == 123) { return false; } // F12
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { return false; } // Ctrl+Shift+I
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) { return false; } // Ctrl+Shift+C
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { return false; } // Ctrl+Shift+J
+            if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { return false; } // Ctrl+U
+            if(e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)) { return false; } // Ctrl+S
+        }
+    </script>
+
+    <script>
+        tailwind.config = {
+            theme: { extend: {
+                fontFamily: { 
+                    sans: ['"Plus Jakarta Sans"', 'sans-serif'], 
+                    display: ['"Inter"', 'sans-serif'], 
+                    russo: ['"Russo One"', 'sans-serif'],
+                    tech: ['"Rajdhani"', 'sans-serif'],
+                    brand: ['"Montserrat"', 'sans-serif'],
+                },
+                colors: { 
+                    background: '#020502',
+                    surface: '#051005', 
+                    bdjGreen: '#00FF40',
+                    bdjDark: '#001a05',
+                    twitch: '#9146ff',
+                    offline: '#0a1f0a'
+                },
+                animation: { 
+                    'spin-slow': 'spin 3s linear infinite', 
+                    'spin-slower': 'spin 15s linear infinite', 
+                    'wind': 'wind 2s ease-in-out infinite alternate',
+                    'bounce-slight': 'bounceSlight 2s infinite',
+                    'fade-in': 'fadeIn 0.5s ease-out forwards',
+                    'pulse-slow': 'pulse 3s infinite',
+                    'slide-up': 'slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                    'glow': 'glow 2s ease-in-out infinite alternate',
+                    'float': 'float 3s ease-in-out infinite',
+                    'float-gentle': 'floatGentle 4s ease-in-out infinite',
+                    'impact': 'impact 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards',
+                    'bubble': 'bubble 3s linear infinite',
+                    'rise': 'rise 10s infinite ease-in',
+                    'flip-reveal': 'flipReveal 2s cubic-bezier(0.4, 0, 0.2, 1) forwards',
+                },
+                keyframes: {
+                    wind: { '0%': { transform: 'rotate(-10deg) translateX(0)' }, '100%': { transform: 'rotate(10deg) translateX(5px)' } },
+                    bounceSlight: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-5px)' } },
+                    fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+                    slideUp: { '0%': { transform: 'translateY(20px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } },
+                    glow: { '0%': { boxShadow: '0 0 5px rgba(0, 255, 64, 0.2)' }, '100%': { boxShadow: '0 0 20px rgba(0, 255, 64, 0.6), 0 0 10px rgba(0, 255, 64, 0.4)' } },
+                    float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } },
+                    floatGentle: { '0%, 100%': { transform: 'translateY(0) rotate(0deg)' }, '50%': { transform: 'translateY(-5px) rotate(5deg)' } },
+                    impact: {
+                        '0%': { opacity: '0', transform: 'scale(1.5) translateY(-50px)' },
+                        '70%': { opacity: '1', transform: 'scale(1) translateY(10px)' },
+                        '100%': { opacity: '1', transform: 'scale(1) translateY(0)' }
+                    },
+                    bubble: {
+                        '0%': { transform: 'translateY(10px) scale(0)', opacity: '0' },
+                        '50%': { opacity: '1' },
+                        '100%': { transform: 'translateY(-20px) scale(1)', opacity: '0' }
+                    },
+                    rise: {
+                        '0%': { bottom: '-20px', transform: 'translateX(0)', opacity: '0' },
+                        '20%': { opacity: '0.6' },
+                        '50%': { transform: 'translateX(10px)' },
+                        '80%': { opacity: '0.6' },
+                        '100%': { bottom: '110%', transform: 'translateX(-10px)', opacity: '0' }
+                    },
+                    flipReveal: {
+                        '0%': { transform: 'perspective(400px) rotateY(90deg) scale(0.5)', opacity: '0' },
+                        '40%': { transform: 'perspective(400px) rotateY(-20deg) scale(1.1)', opacity: '1' },
+                        '60%': { transform: 'perspective(400px) rotateY(10deg) scale(1.05)' },
+                        '80%': { transform: 'perspective(400px) rotateY(-5deg) scale(1)' },
+                        '100%': { transform: 'perspective(400px) rotateY(0deg) scale(1)', opacity: '1' }
+                    }
+                },
+                backgroundImage: {
+                    'grid-pattern': "linear-gradient(to right, #00ff4010 1px, transparent 1px), linear-gradient(to bottom, #00ff4010 1px, transparent 1px)",
+                }
+            }}
+        }
+    </script>
+    <style>
+        body { 
+            background-color: #020502; 
+            color: #e2e8f0; 
+            margin: 0; 
+            padding: 0; 
+            overflow: hidden; 
+            transition: background 0.5s ease;
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10 and IE 11 */
+            user-select: none; /* Standard syntax */
+        }
+        
+        /* Camada Base Sólida (Fundo Preto) */
+        .site-bg-base {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #020502;
+            z-index: -20;
+        }
+
+        /* Imagem de Fundo Estática */
+        .site-bg-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://i.imgur.com/3EIaZHq.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: -10; /* Agora acima do fundo preto base */
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            pointer-events: none;
+        }
+        
+        .site-bg-image.visible {
+            opacity: 0.4; /* Aumentei a opacidade para ficar mais visível */
+        }
+
+        body.cinema-active .site-bg-image {
+            opacity: 0;
+        }
+
+        /* Overlay gradiente para misturar imagem com o tema */
+        .site-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(0, 40, 10, 0.4) 0%, rgba(2, 5, 2, 0.95) 90%);
+            z-index: -5;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+        
+        body.cinema-active .site-overlay { opacity: 0; }
+
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar-track { background: #051005; }
+        ::-webkit-scrollbar-thumb { background: #004d1a; border-radius: 2px; }
+        ::-webkit-scrollbar-thumb:hover { background: #00FF40; } 
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .glass-panel { background: rgba(5, 20, 5, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(0, 255, 64, 0.15); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6); }
+        .glass-panel-3d { background: transparent; box-shadow: none; border: none; }
+        
+        .player-header { background: linear-gradient(180deg, rgba(0,10,0,0.95) 0%, rgba(0,10,0,0.7) 60%, rgba(0,0,0,0) 100%); }
+        .text-shadow { text-shadow: 0 2px 4px rgba(0,0,0,0.9); }
+        
+        .cyber-border-bottom {
+            border-bottom: 1px solid rgba(0, 255, 64, 0.1);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.6);
+            background: rgba(2, 10, 2, 0.85);
+            backdrop-filter: blur(10px);
+        }
+
+        .perspective-1000 { perspective: 1000px; }
+        .transform-style-3d { transform-style: preserve-3d; }
+        .backface-hidden { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+        .rotate-y-180 { transform: rotateY(180deg); }
+        .rotate-y-0 { transform: rotateY(0deg); }
+
+        .floating-toolbar {
+            position: fixed;
+            bottom: 2rem; /* Mais alto no mobile */
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(5, 10, 5, 0.6);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 255, 64, 0.2);
+            border-radius: 9999px;
+            padding: 0.35rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: visible;
+        }
+        
+        @media (min-width: 768px) {
+            .floating-toolbar {
+                bottom: 1.5rem;
+                background: rgba(5, 10, 5, 0.4);
+            }
+        }
+        
+        .floating-toolbar.active,
+        .floating-toolbar:hover {
+            background: rgba(5, 15, 5, 0.95);
+            border-color: rgba(0, 255, 64, 0.4);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 255, 64, 0.2);
+            padding: 0.5rem 1rem;
+            transform: translateX(-50%) translateY(-2px);
+        }
+
+        .tooltip-container { position: relative; }
+        .tooltip-text {
+            position: absolute;
+            bottom: 140%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: rgba(2, 5, 2, 0.95);
+            border: 1px solid rgba(0, 255, 64, 0.2);
+            color: #00FF40;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            z-index: 101;
+        }
+        .tooltip-container:hover .tooltip-text {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        /* Estilos do Fundo Animado */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -3; /* Atrás do conteúdo, na frente do overlay */
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .ember {
+            position: absolute;
+            background: #00FF40;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #00FF40, 0 0 20px #00FF40;
+            opacity: 0;
+            animation: rise linear infinite;
+        }
+
+        /* ANIMAÇÃO DE IMPACTO PARA INTRO (RESTAURADA) */
+        @keyframes letterImpact {
+            0% { transform: scale(5); opacity: 0; filter: blur(20px); }
+            40% { transform: scale(0.9); opacity: 1; filter: blur(0px); }
+            70% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        @keyframes glowPulse {
+            0% { text-shadow: 0 0 10px #00FF40, 0 0 20px #00FF40; }
+            50% { text-shadow: 0 0 30px #00FF40, 0 0 50px #00FF40, 0 0 70px #00FF40; }
+            100% { text-shadow: 0 0 10px #00FF40, 0 0 20px #00FF40; }
+        }
+
+        .letter-anim {
+            display: inline-block;
+            animation-fill-mode: forwards;
+            opacity: 0;
+        }
+        
+        .letter-active {
+            animation: letterImpact 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, glowPulse 3s infinite 0.5s;
+        }
+
+        /* Estilo para rotação 3D da Drinkiss (Agora nos Players) */
+        .drinkiss-spin {
+            animation: drinkissSpin 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        @keyframes drinkissSpin {
+            0% { transform: scale(0.5) rotateY(0deg); opacity: 0; }
+            20% { opacity: 1; }
+            40% { transform: scale(1.1) rotateY(180deg); }
+            60% { transform: scale(1.0) rotateY(360deg); }
+            80% { transform: scale(1.0) rotateY(360deg); opacity: 1; }
+            100% { transform: scale(1.5) rotateY(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Camadas de Fundo Organizadas -->
+    <div class="site-bg-base"></div>
+    <div id="bg-image-layer" class="site-bg-image"></div>
+    <div class="site-overlay"></div>
+
+    <div id="root" style="position: relative; z-index: 10;"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef, memo, useCallback } = React;
+        const { createPortal } = ReactDOM;
+
+        // --- CONSTANTS ---
+        const SOCIALS = {
+            jon: { instagram: 'jonvlogs', twitter: 'jonvlogs', tiktok: 'jonvlogs' },
+            font: { instagram: 'fontinnelerj', twitter: 'Fontinnele00', tiktok: 'fontinnele' },
+            mar: { instagram: 'marcovebb', twitter: 'marcovebb', tiktok: 'marcovebb' },
+            jhow: { instagram: 'jhowrj1', twitter: 'jhowrj1', tiktok: 'jhowrj1' }
+        };
+
+        // --- Icons ---
+        const Icons = {
+            Volume2: (props)=><svg {...props} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>,
+            VolumeX: (props)=><svg {...props} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>,
+            Refresh: (props)=><svg {...props} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><path d="M21 3v5h-5"></path><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path><path d="M3 21v-5h5"></path></svg>,
+            Info: (props)=><svg {...props} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>,
+            X: (props)=><svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>,
+            Maximize: (props)=><svg {...props} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>,
+            Minimize: (props)=><svg {...props} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="4 14 10 14 10 20"></polyline><polyline points="20 10 14 10 14 4"></polyline><line x1="14" y1="10" x2="21" y2="3"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>,
+            Chat: (props)=><svg {...props} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>,
+            Signal: (props)=><svg {...props} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 20h.01"/><path d="M7 20v-4"/><path d="M12 20v-8"/><path d="M17 20V8"/><path d="M22 20V4"/></svg>,
+            SignalOff: (props)=><svg {...props} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="1" y1="1" x2="23" y2="23"></line><path d="M2 20h.01"/><path d="M7 20v-4"/><path d="M12 20v-8"/><path d="M17 20V8"/></svg>,
+            Grid: (props)=><svg {...props} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>,
+            Layout: (props)=><svg {...props} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="12" x2="21" y2="12"></line></svg>,
+            Eye: (props)=><svg {...props} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>,
+            EyeOff: (props)=><svg {...props} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>,
+            Moon: (props)=><svg {...props} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>,
+            Sun: (props)=><svg {...props} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>,
+            Settings: (props)=><svg {...props} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1 2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>,
+            Forward: (props)=><svg {...props} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 19 22 12 13 5 13 19"></polygon><polygon points="2 19 11 12 2 5 2 19"></polygon></svg>
+        };
+
+        const BDJLogo = () => (
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-4 cursor-pointer group select-none" onClick={() => window.location.reload()}>
+                <div className="flex flex-col relative">
+                    <div className="absolute inset-0 bg-bdjGreen blur-3xl opacity-10 animate-pulse"></div>
+                    
+                    <h1 className="relative z-10 font-brand font-black text-4xl md:text-7xl tracking-tighter leading-none pr-4 py-1 text-white" 
+                        style={{ 
+                            textShadow: '3px 3px 0px #000, 6px 6px 0px #00FF40' 
+                        }}>
+                        BDJ
+                    </h1>
+                    <div className="h-0.5 w-full bg-gradient-to-r from-transparent via-bdjGreen to-transparent opacity-60 shadow-sm"></div>
+                </div>
+                
+                <div className="hidden md:flex flex-col border-l-2 border-bdjGreen/30 pl-4 py-1">
+                    <span className="text-bdjGreen/80 text-xs font-brand font-black uppercase tracking-widest drop-shadow-sm">
+                        Os maiores criadores de conteúdo
+                    </span>
+                    <span className="text-white text-sm font-brand font-bold uppercase tracking-wide bg-gradient-to-r from-white to-bdjGreen bg-clip-text text-transparent drop-shadow-sm">
+                        IN REAL LIFE (IRL) DO BRASIL
+                    </span>
+                </div>
+            </div>
+        );
+
+        const getAvatar = (id) => {
+            if(id === 'jon') return "https://i.imgur.com/yWSrajg.png";
+            if(id === 'font') return "https://i.imgur.com/wwUvDiP.png";
+            if(id === 'mar') return "https://i.imgur.com/k8mkhYs.png";
+            if(id === 'jhow') return "https://i.imgur.com/ylSZpz2.png";
+            return "https://ui-avatars.com/api/?background=random&color=fff&size=128&bold=true&name=" + id;
+        }
+
+        // NOVO COMPONENTE: Propaganda Drinkiss (Pre-roll no Player)
+        const DrinkissAd = ({ onFinish }) => {
+            useEffect(() => {
+                const timer = setTimeout(() => {
+                    onFinish();
+                }, 2800); // Tempo total do anúncio antes de liberar o vídeo
+                return () => clearTimeout(timer);
+            }, [onFinish]);
+
+            return (
+                <div className="absolute inset-0 z-30 bg-[#020502] flex flex-col items-center justify-center overflow-hidden">
+                    {/* Fundo com efeito */}
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(0,255,64,0.15)_0%,_transparent_70%)]"></div>
+                    
+                    {/* Container da Lata/Logo com Animação */}
+                    <div className="relative z-10 drinkiss-spin">
+                        <img 
+                            src="https://cdn.shopify.com/s/files/1/0645/6813/1697/files/Logotipo_Drinkiss-branco.svg" 
+                            alt="Drinkiss" 
+                            className="h-16 md:h-24 object-contain drop-shadow-[0_0_15px_rgba(0,255,64,0.4)]"
+                        />
+                    </div>
+                    
+                    <div className="absolute bottom-4 left-0 right-0 text-center animate-pulse">
+                         <p className="text-white/40 font-tech text-[10px] uppercase tracking-[0.3em]">
+                            Carregando a Tropa...
+                         </p>
+                    </div>
+                </div>
+            );
+        };
+
+        const Credits = ({ isSidebarOpen, chatWidth }) => {
+            const [visible, setVisible] = useState(true);
+            
+            useEffect(() => { 
+                const t = setTimeout(() => setVisible(false), 5000); 
+                return () => clearTimeout(t); 
+            }, []);
+
+            return (
+                <div className={`fixed z-[60] flex items-center gap-2 transition-all duration-700 ease-out group/credits
+                    bottom-4 right-4 md:bottom-6 md:right-6
+                    ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 md:opacity-30 md:translate-y-0 md:hover:opacity-100'}
+                `}
+                style={{ 
+                    right: (typeof window !== 'undefined' && window.innerWidth >= 768 && isSidebarOpen) ? `${chatWidth + 20}px` : undefined 
+                }}
+                >
+                    <div className={`flex items-center gap-2 overflow-hidden transition-all duration-500 ${visible ? 'w-auto opacity-100' : 'w-0 opacity-0 group-hover/credits:w-auto group-hover/credits:opacity-100'}`}>
+                        <a href="https://www.twitch.tv/kaozyking" target="_blank" className="w-6 h-6 flex items-center justify-center bg-[#9146ff] text-white rounded-full hover:scale-110 transition-transform shadow-lg">
+                            <i className="fab fa-twitch text-xs"></i>
+                        </a>
+                        <a href="https://www.instagram.com/oeduardomacedo" target="_blank" className="w-6 h-6 flex items-center justify-center bg-pink-600 text-white rounded-full hover:scale-110 transition-transform shadow-lg">
+                            <i className="fab fa-instagram text-xs"></i>
+                        </a>
+                    </div>
+                    <div className="px-3 py-1.5 bg-black/60 backdrop-blur-md border border-white/5 rounded-full text-[10px] font-medium text-gray-400 group-hover/credits:text-white group-hover/credits:bg-black/80 transition-colors shadow-xl cursor-default flex items-center gap-1">
+                        Dev by <span className="font-bold text-bdjGreen">KaozyKing</span>
+                    </div>
+                </div>
+            )
+        };
+        
+        // Novo Componente: Fundo Animado
+        const AnimatedBackground = () => {
+             const [particles, setParticles] = useState([]);
+
+             useEffect(() => {
+                 const particleCount = 20; // Número de partículas
+                 const newParticles = [];
+                 for(let i=0; i<particleCount; i++) {
+                     newParticles.push({
+                         id: i,
+                         left: Math.random() * 100, // Posição horizontal aleatória
+                         size: Math.random() * 4 + 2, // Tamanho aleatório
+                         duration: Math.random() * 5 + 5, // Duração da animação
+                         delay: Math.random() * 5 // Atraso inicial
+                     });
+                 }
+                 setParticles(newParticles);
+             }, []);
+
+             return (
+                 <div className="animated-bg">
+                     {particles.map(p => (
+                         <div 
+                             key={p.id}
+                             className="ember"
+                             style={{
+                                 left: `${p.left}%`,
+                                 width: `${p.size}px`,
+                                 height: `${p.size}px`,
+                                 animationDuration: `${p.duration}s`,
+                                 animationDelay: `${p.delay}s`
+                             }}
+                         ></div>
+                     ))}
+                 </div>
+             );
+        };
+
+        const TwitchEmbed = memo(({ channel, isMuted, onLoad, onOffline, onOnline }) => {
+            const embedRef = useRef(null);
+            useEffect(() => {
+                if (!embedRef.current || !window.Twitch) return;
+                embedRef.current.innerHTML = '';
+                const options = { width: '100%', height: '100%', channel: channel, parent: [window.location.hostname, 'localhost'], muted: isMuted, autoplay: true, layout: 'video' };
+                const player = new window.Twitch.Player(embedRef.current, options);
+                player.addEventListener(window.Twitch.Player.READY, () => { player.setMuted(isMuted); if(onLoad) onLoad(); });
+                player.addEventListener(window.Twitch.Player.OFFLINE, () => { if(onOffline) onOffline(); });
+                player.addEventListener(window.Twitch.Player.ONLINE, () => { if(onOnline) onOnline(); });
+                const checkStatus = () => { if (player.getEnded()) { if(onOffline) onOffline(); } };
+                setTimeout(checkStatus, 2000);
+            }, [channel]);
+            return <div ref={embedRef} className="w-full h-full bg-black"></div>;
+        });
+
+        const StreamPlayer = memo(({ stream, isGlobalMuted, onRefresh, onToggleFocus, isFocused, onSetChat, isSide, isCinemaMode, onStatusChange, appIsReady }) => {
+            const isJhow = stream.id === 'jhow';
+            const [isHovered, setIsHovered] = useState(false);
+            const [status, setStatus] = useState('loading');
+            const [showAd, setShowAd] = useState(true); // Estado para controlar a propaganda
+            const socials = SOCIALS[stream.id] || {};
+            
+            // Correção do Bug: Função estável para encerrar o anúncio
+            const handleAdFinish = useCallback(() => {
+                setShowAd(false);
+            }, []);
+            
+            // Quando recarregar, mostra a propaganda de novo
+            const handleManualRefresh = (e) => {
+                e.stopPropagation();
+                setShowAd(true);
+                setStatus('loading');
+                onRefresh(stream.id);
+            };
+
+            const handleOffline = useCallback(() => {
+                setStatus('offline');
+                if(onStatusChange) onStatusChange(stream.id, false);
+            }, [stream.id, onStatusChange]);
+
+            const handleOnline = useCallback(() => {
+                setStatus('online');
+                if(onStatusChange) onStatusChange(stream.id, true);
+            }, [stream.id, onStatusChange]);
+
+            const handleLoad = useCallback(() => { 
+                setStatus('online');
+                if(onStatusChange) onStatusChange(stream.id, true); 
+            }, [stream.id, onStatusChange]);
+
+            return (
+                <div 
+                    className={`relative w-full h-full flex flex-col transition-all duration-300 group ${status === 'offline' ? 'opacity-40 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-500' : ''}`}
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                    onClick={() => setIsHovered(prev => !prev)}
+                >
+                    <div className={`relative w-full h-full flex flex-col ${isCinemaMode ? 'bg-black' : 'glass-panel-3d'} ${isFocused && !isCinemaMode ? 'ring-2 ring-bdjGreen shadow-[0_0_50px_rgba(0,255,64,0.3)]' : isCinemaMode ? '' : 'hover:border-bdjGreen/30'}`}>
+                        
+                        <div className="flex-1 relative bg-black flex items-center justify-center perspective-1000">
+                            <div className={`relative w-full h-full`}>
+                                <div className={`absolute inset-0 backface-hidden flex flex-col items-center justify-center bg-gradient-to-br from-[#003311] to-[#001105] rounded-xl overflow-hidden border border-bdjGreen/30 hidden`}></div>
+                                <div className={`absolute inset-0 backface-hidden bg-black overflow-hidden border border-bdjGreen/10 flex flex-col ${isCinemaMode ? 'rounded-none border-none' : 'rounded-xl'}`}>
+                                    
+                                    {/* BANNER SECTION - Mantido Fixo */}
+                                    <div className="h-8 md:h-10 w-full bg-gradient-to-r from-green-900/90 to-black flex items-center justify-between px-3 md:px-4 shrink-0 border-b border-bdjGreen/20 z-40 relative backdrop-blur-sm overflow-hidden group/sponsor">
+                                        <div className="absolute left-0 top-0 bottom-0 w-24 pointer-events-none overflow-hidden">
+                                             <img src="https://cdn.shopify.com/s/files/1/0645/6813/1697/files/orange3.png" className="absolute -left-2 top-1/2 -translate-y-1/2 w-10 h-10 object-contain opacity-40 animate-float-gentle" style={{ filter: 'drop-shadow(0 0 5px rgba(255,165,0,0.5))' }} />
+                                             <div className="absolute left-8 bottom-0 w-1 h-1 bg-orange-400 rounded-full animate-ping opacity-50"></div>
+                                        </div>
+                                        <div className="flex items-center gap-2 relative z-10 pl-6">
+                                            <span className="text-[8px] md:text-[10px] font-tech text-white/70 uppercase tracking-widest hidden md:block">Oferecimento:</span>
+                                            <img src="https://cdn.shopify.com/s/files/1/0645/6813/1697/files/Logotipo_Drinkiss-branco.svg" alt="Drinkiss" className="h-4 md:h-5 object-contain" />
+                                        </div>
+                                        <a href="https://drinkiss.bar/" target="_blank" rel="noopener noreferrer" className="bg-bdjGreen/10 hover:bg-bdjGreen/20 text-bdjGreen text-[9px] md:text-[10px] font-bold py-1 px-3 rounded-full border border-bdjGreen/30 transition-all hover:border-bdjGreen hover:shadow-[0_0_10px_rgba(0,255,64,0.3)] uppercase tracking-wider flex items-center gap-1 z-40 relative">
+                                            Garantir o Meu <i className="fas fa-external-link-alt text-[8px]"></i>
+                                        </a>
+                                    </div>
+
+                                    {/* ÁREA DO VÍDEO + PROPAGANDA + OVERLAYS */}
+                                    <div className="flex-1 relative w-full h-full">
+                                        
+                                        {/* 1. PROPAGANDA (Pre-roll) - Cobre o vídeo temporariamente */}
+                                        {/* CORREÇÃO: Só renderiza se showAd for true E o app já estiver pronto (intro acabou) */}
+                                        {showAd && appIsReady && (
+                                            <DrinkissAd onFinish={handleAdFinish} />
+                                        )}
+
+                                        {/* 2. PLAYER DE VÍDEO */}
+                                        <div className={`w-full h-full ${(status === 'offline' && !showAd) ? 'hidden' : 'block'}`}>
+                                            <TwitchEmbed key={stream.key} channel={stream.name} isMuted={isGlobalMuted} onLoad={handleLoad} onOffline={handleOffline} onOnline={handleOnline} />
+                                        </div>
+                                        
+                                        {/* OVERLAY DE STATUS (OFFLINE) - Só aparece se não tiver ad rodando */}
+                                        {status === 'offline' && !showAd && (
+                                            <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#051005] animate-fade-in z-10">
+                                                <div className="relative mb-4">
+                                                    <div className="absolute inset-0 bg-bdjGreen blur-2xl opacity-10 rounded-full"></div>
+                                                    <img src={getAvatar(stream.id)} className="w-16 h-16 md:w-20 md:h-20 rounded-full grayscale opacity-50 border-4 border-bdjGreen/20 relative z-10" />
+                                                    <div className="absolute bottom-0 right-0 bg-black p-1.5 rounded-full z-20 border border-bdjGreen/50"><Icons.SignalOff /></div>
+                                                </div>
+                                                <h3 className="text-gray-500 font-russo text-lg md:text-xl uppercase tracking-widest">Offline</h3>
+                                                <p className="text-gray-600 text-xs mt-2 max-w-[200px] text-center">O sinal caiu ou a live encerrou.</p>
+                                                <button onClick={handleManualRefresh} className="mt-6 px-4 py-2 bg-bdjGreen/10 hover:bg-bdjGreen/20 text-bdjGreen text-xs font-bold rounded-full border border-bdjGreen/30 transition-all uppercase tracking-wider flex items-center gap-2 hover:shadow-[0_0_15px_rgba(0,255,64,0.2)]"><Icons.Refresh /> Tentar Reconectar</button>
+                                            </div>
+                                        )}
+                                        
+                                        {/* LOADING STATE (Fallback simples se a ad acabar mas stream ainda não estiver pronto) */}
+                                        {status === 'loading' && !showAd && (
+                                            <div className="absolute inset-0 flex items-center justify-center bg-black z-20 pointer-events-none">
+                                                <div className="w-8 h-8 border-2 border-bdjGreen border-t-transparent rounded-full animate-spin"></div>
+                                            </div>
+                                        )}
+
+                                        {/* 1. INFO STREAMER (Canto Superior Esquerdo - Abaixo do Banner) */}
+                                        <div className={`absolute top-4 left-4 z-40 flex items-center gap-2 transition-all duration-300 pointer-events-none ${(isHovered || status === 'offline') && !showAd ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'}`}>
+                                             <div className="flex flex-col items-start pointer-events-auto bg-black/60 backdrop-blur-md p-1.5 rounded-xl border border-white/10 pr-4 pl-1.5 shadow-lg gap-1">
+                                                <div className="flex items-center gap-2">
+                                                    {!isSide && (
+                                                        <div className="relative">
+                                                            <img src={getAvatar(stream.id)} alt="Avatar" className={`w-8 h-8 rounded-full border-2 object-cover ${status === 'online' ? 'border-bdjGreen grayscale-0' : 'border-gray-600 grayscale'}`} />
+                                                            <div className={`absolute -bottom-1 -right-1 w-2.5 h-2.5 rounded-full border-2 border-black ${status === 'online' ? 'bg-bdjGreen animate-pulse' : 'bg-gray-500'}`}></div>
+                                                        </div>
+                                                    )}
+                                                    <div className="flex flex-col">
+                                                        <span className={`font-russo text-xs md:text-sm uppercase tracking-wide leading-none text-shadow ${status === 'online' ? 'text-white' : 'text-gray-400'}`}>
+                                                            {stream.name}
+                                                        </span>
+                                                        {status === 'online' && isJhow && !isSide && <span className="text-[8px] text-bdjGreen font-bold uppercase tracking-wider">A Rabiola</span>}
+                                                    </div>
+                                                </div>
+                                                
+                                                {/* Social Hub no Player */}
+                                                <div className="flex items-center gap-2 pl-1.5">
+                                                    {socials.instagram && (
+                                                        <a href={`https://instagram.com/${socials.instagram}`} target="_blank" rel="noreferrer" className="text-gray-400 hover:text-[#E1306C] transition-colors" title="Instagram">
+                                                            <i className="fab fa-instagram text-xs"></i>
+                                                        </a>
+                                                    )}
+                                                    {socials.twitter && (
+                                                        <a href={`https://twitter.com/${socials.twitter}`} target="_blank" rel="noreferrer" className="text-gray-400 hover:text-[#1DA1F2] transition-colors" title="Twitter/X">
+                                                            <i className="fab fa-twitter text-xs"></i>
+                                                        </a>
+                                                    )}
+                                                    {socials.tiktok && (
+                                                        <a href={`https://tiktok.com/@${socials.tiktok}`} target="_blank" rel="noreferrer" className="text-gray-400 hover:text-[#ff0050] transition-colors" title="TikTok">
+                                                            <i className="fab fa-tiktok text-xs"></i>
+                                                        </a>
+                                                    )}
+                                                </div>
+                                             </div>
+                                        </div>
+
+                                        {/* 2. CONTROLES (Lateral Direita Vertical) */}
+                                        <div className={`absolute right-2 top-16 z-40 flex flex-col gap-2 transition-all duration-300 ${(isHovered && !showAd) ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'}`}>
+                                            <button onClick={(e) => { e.stopPropagation(); onSetChat(stream.id); }} className="w-8 h-8 flex items-center justify-center rounded-full bg-black/60 hover:bg-twitch text-white/80 hover:text-white backdrop-blur-md border border-white/10 transition-all active:scale-95 shadow-lg group/btn relative" title="Abrir Chat">
+                                                <Icons.Chat />
+                                            </button>
+                                            <button onClick={(e) => { e.stopPropagation(); onToggleFocus(stream.id); }} className="w-8 h-8 flex items-center justify-center rounded-full bg-black/60 hover:bg-bdjGreen text-white/80 hover:text-black backdrop-blur-md border border-white/10 transition-all active:scale-95 shadow-lg" title="Restaurar Grid">
+                                                <Icons.Minimize />
+                                            </button>
+                                            <button onClick={handleManualRefresh} className="w-8 h-8 flex items-center justify-center rounded-full bg-black/60 hover:bg-white/20 text-white/80 hover:text-white backdrop-blur-md border border-white/10 transition-all active:scale-95 shadow-lg" title="Recarregar">
+                                                <Icons.Refresh />
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        });
+
+        const AboutModal = ({ isOpen, onClose }) => {
+            if (!isOpen) return null;
+            
+            const members = [
+                {id: 'jon', name: 'Jon Vlogs', role: 'Líder / CEO'},
+                {id: 'font', name: 'FontinnelleRJ', role: 'Player'},
+                {id: 'mar', name: 'Marcove', role: 'Player'},
+                {id: 'jhow', name: 'JhowRJ1', role: 'A Rabiola'}
+            ];
+
+            return (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md animate-fade-in" onClick={onClose}>
+                    <div className="glass-panel w-full max-w-2xl rounded-2xl overflow-hidden shadow-2xl relative border border-bdjGreen/30" onClick={e=>e.stopPropagation()}>
+                        <div className="h-32 bg-gradient-to-r from-bdjDark to-[#003300] relative overflow-hidden">
+                            <div className="absolute inset-0 bg-grid-pattern opacity-30"></div>
+                            <button onClick={onClose} className="absolute top-4 right-4 text-white/70 hover:text-white bg-black/20 p-2 rounded-full backdrop-blur-sm transition-all hover:bg-bdjGreen/20"><Icons.X /></button>
+                            <div className="absolute bottom-0 left-0 p-6">
+                                <h2 className="text-2xl md:text-3xl font-russo text-white uppercase tracking-wider drop-shadow-lg text-shadow">Sobre a BDJ</h2>
+                            </div>
+                        </div>
+                        <div className="p-6 md:p-8 bg-[#020502]">
+                            <div className="mb-6">
+                                <h3 className="text-bdjGreen font-bold uppercase text-sm mb-3 tracking-widest drop-shadow-[0_0_5px_rgba(0,255,64,0.4)]">O Projeto</h3>
+                                <p className="text-gray-400 text-sm leading-relaxed">
+                                    Jon Vlogs lidera a tropa em uma jornada de conteúdo IRL, games e lifestyle. O Portal BDJ centraliza as transmissões para você não perder nada.
+                                </p>
+                            </div>
+                            <div className="mb-6">
+                                <h3 className="text-bdjGreen font-bold uppercase text-sm mb-3 tracking-widest drop-shadow-[0_0_5px_rgba(0,255,64,0.4)]">Integrantes Oficiais</h3>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    {members.map((member, idx) => {
+                                        const social = SOCIALS[member.id] || {};
+                                        return (
+                                            <div key={idx} className="flex items-center gap-3 p-3 rounded-lg bg-bdjGreen/5 border border-bdjGreen/10 hover:border-bdjGreen/40 hover:bg-bdjGreen/10 transition-colors group">
+                                                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-green-900 to-black flex items-center justify-center text-white text-xs font-bold border border-bdjGreen/30 shrink-0">
+                                                    <img src={getAvatar(member.id)} className="w-full h-full rounded-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
+                                                </div>
+                                                <div className="flex-1 min-w-0">
+                                                    <div className="flex items-center justify-between">
+                                                        <div className="text-gray-200 font-bold text-sm truncate">{member.name}</div>
+                                                        <div className="flex items-center gap-2">
+                                                            {social.instagram && <a href={`https://instagram.com/${social.instagram}`} target="_blank" className="text-gray-500 hover:text-[#E1306C] transition-colors"><i className="fab fa-instagram text-xs"></i></a>}
+                                                            {social.twitter && <a href={`https://twitter.com/${social.twitter}`} target="_blank" className="text-gray-500 hover:text-[#1DA1F2] transition-colors"><i className="fab fa-twitter text-xs"></i></a>}
+                                                        </div>
+                                                    </div>
+                                                    <div className="text-gray-500 text-[10px] uppercase truncate">{member.role}</div>
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                            <div className="pt-4 border-t border-bdjGreen/10 flex justify-between items-center text-xs text-gray-500">
+                                <span>© 2026 BDJ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const LoadingScreen = ({ onComplete }) => {
+            const [step, setStep] = useState(0); 
+            
+            const handleSkip = () => onComplete();
+
+            useEffect(() => {
+                // Timing agressivo (Impacto)
+                const t1 = setTimeout(() => setStep(1), 300);   // B
+                const t2 = setTimeout(() => setStep(2), 800);   // D
+                const t3 = setTimeout(() => setStep(3), 1300);  // J
+                const t4 = setTimeout(() => setStep(4), 1800);  // Slogan
+                const t5 = setTimeout(() => setStep(5), 3200);  // Fade Out
+                const t6 = setTimeout(onComplete, 3800);      // Remove
+                return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4); clearTimeout(t5); clearTimeout(t6); };
+            }, [onComplete]);
+
+            if (step === 6) return null;
+            
+            return (
+                <div className={`fixed inset-0 z-[100] bg-[#020502] flex flex-col items-center justify-center transition-all duration-700 ease-in-out ${step >= 5 ? 'opacity-0 scale-105 pointer-events-none' : 'opacity-100'}`}>
+                     
+                     {/* Efeito de Fundo (Spotlight) */}
+                     <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ${step >= 1 ? 'opacity-100' : 'opacity-0'}`}>
+                        <div className="w-[500px] h-[500px] bg-bdjGreen/5 blur-[120px] rounded-full"></div>
+                     </div>
+
+                     <div className="relative flex flex-col items-center z-10">
+                        <div className="flex items-center gap-2 md:gap-6">
+                            {/* Letra B */}
+                            <span className={`font-brand font-black text-7xl md:text-[10rem] text-white tracking-tighter letter-anim ${step >= 1 ? 'letter-active' : ''}`} 
+                                  style={{ textShadow: '0 0 20px rgba(255,255,255,0.2)' }}>
+                                B
+                            </span>
+                            
+                            {/* Letra D */}
+                            <span className={`font-brand font-black text-7xl md:text-[10rem] text-white tracking-tighter letter-anim ${step >= 2 ? 'letter-active' : ''}`} 
+                                  style={{ textShadow: '0 0 20px rgba(255,255,255,0.2)' }}>
+                                D
+                            </span>
+                            
+                            {/* Letra J (Verde) */}
+                            <span className={`font-brand font-black text-7xl md:text-[10rem] text-bdjGreen tracking-tighter letter-anim ${step >= 3 ? 'letter-active' : ''}`} 
+                                  style={{ textShadow: '0 0 30px rgba(0,255,64,0.5)' }}>
+                                J
+                            </span>
+                        </div>
+
+                        {/* Linha e Slogan */}
+                        <div className={`mt-10 w-full flex flex-col items-center transition-all duration-500 ease-out transform
+                            ${step >= 4 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
+                        `}>
+                             <div className="h-1.5 w-32 bg-bdjGreen rounded-full mb-6 shadow-[0_0_15px_#00FF40]"></div>
+                             <p className="text-white/80 font-tech text-sm md:text-base uppercase tracking-[0.8em] drop-shadow-lg">
+                                Multiview Oficial
+                             </p>
+                        </div>
+                     </div>
+                     
+                     <button 
+                        onClick={handleSkip}
+                        className="absolute bottom-10 right-10 text-white/30 hover:text-white text-[10px] font-bold uppercase tracking-widest border border-white/5 hover:border-white/20 px-5 py-2.5 rounded-full transition-all flex items-center gap-2 group z-50 hover:bg-white/5 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]"
+                     >
+                        Pular Intro <Icons.Forward width={12} height={12} className="group-hover:translate-x-1 transition-transform" />
+                     </button>
+                </div>
+            )
+        };
+
+        const FloatingControlBar = ({ 
+            isLoading,
+            isCinemaMode, 
+            toggleCinemaMode, 
+            isGlobalMuted, 
+            toggleGlobalMute, 
+            sidebarOpen, 
+            toggleSidebar,
+            layoutMode,
+            toggleLayoutMode
+        }) => {
+            const [isActive, setIsActive] = useState(false);
+            const timeoutRef = useRef(null);
+            if (isLoading) return null; 
+            const handleEnter = () => { if(timeoutRef.current) clearTimeout(timeoutRef.current); setIsActive(true); };
+            const handleLeave = () => { timeoutRef.current = setTimeout(() => setIsActive(false), 2000); };
+            return (
+                <div className={`floating-toolbar ${isActive ? 'active' : ''}`} onMouseEnter={handleEnter} onMouseLeave={handleLeave} onTouchStart={handleEnter}>
+                    {!isActive ? (
+                        <div className="w-8 h-8 flex items-center justify-center text-bdjGreen/50 animate-pulse cursor-pointer hover:text-bdjGreen transition-colors"><Icons.Settings width={24} height={24} /></div>
+                    ) : (
+                        <div className="flex items-center gap-2 animate-fade-in">
+                            <div className="tooltip-container">
+                                <button onClick={toggleSidebar} className={`p-2 rounded-full transition-all ${sidebarOpen ? 'bg-bdjGreen text-black shadow-[0_0_10px_rgba(0,255,64,0.4)]' : 'text-gray-400 hover:text-white hover:bg-white/10'}`}>
+                                    {sidebarOpen ? <Icons.Chat width={20} height={20} /> : <Icons.Chat width={20} height={20} className="opacity-50" />}
+                                </button>
+                                <span className="tooltip-text">{sidebarOpen ? 'Ocultar Chat' : 'Mostrar Chat'}</span>
+                            </div>
+                            <div className="w-[1px] h-5 bg-white/10 mx-1"></div>
+                            <div className="tooltip-container">
+                                <button onClick={toggleCinemaMode} className={`p-2 rounded-full transition-all ${isCinemaMode ? 'bg-amber-400 text-black shadow-[0_0_15px_rgba(251,191,36,0.5)]' : 'text-gray-400 hover:text-white hover:bg-white/10'}`}>
+                                    {isCinemaMode ? <Icons.Sun width={20} height={20} /> : <Icons.Moon width={20} height={20} />}
+                                </button>
+                                <span className="tooltip-text">{isCinemaMode ? 'Sair do Cinema' : 'Modo Cinema'}</span>
+                            </div>
+                            <div className="w-[1px] h-5 bg-white/10 mx-1"></div>
+                            <div className="tooltip-container">
+                                <button onClick={toggleGlobalMute} className={`p-2 rounded-full transition-all ${isGlobalMuted ? 'bg-red-500 text-white animate-pulse' : 'text-gray-400 hover:text-white hover:bg-white/10'}`}>
+                                    {isGlobalMuted ? <Icons.VolumeX width={20} height={20} /> : <Icons.Volume2 width={20} height={20} />}
+                                </button>
+                                <span className="tooltip-text">{isGlobalMuted ? 'Desmutar Geral' : 'Mutar Geral'}</span>
+                            </div>
+                            <div className="tooltip-container">
+                                <button onClick={toggleLayoutMode} className={`p-2 rounded-full transition-all ${layoutMode === 'focus' ? 'bg-white text-black' : 'text-gray-400 hover:text-white hover:bg-white/10'}`}>
+                                    {layoutMode === 'focus' ? <Icons.Layout width={20} height={20} /> : <Icons.Grid width={20} height={20} />}
+                                </button>
+                                <span className="tooltip-text">{layoutMode === 'focus' ? 'Modo Foco' : 'Modo Grade'}</span>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        const App = () => {
+            // Verifica localStorage para ver se a intro já foi vista
+            const [isLoading, setIsLoading] = useState(() => {
+                const introSeen = localStorage.getItem('bdj_intro_seen');
+                return introSeen !== 'true';
+            });
+            
+            const [streamers, setStreamers] = useState([ { id: 'jon', name: 'jonvlogs', key: 1 }, { id: 'font', name: 'fontinnelerj', key: 2 }, { id: 'mar', name: 'marcove', key: 3 }, { id: 'jhow', name: 'jhowrj1', key: 4 } ]);
+            
+            // Persistência com localStorage
+            const [isGlobalMuted, setIsGlobalMuted] = useState(() => localStorage.getItem('isGlobalMuted') === 'true');
+            const [showAbout, setShowAbout] = useState(false);
+            const [activeChat, setActiveChat] = useState(() => localStorage.getItem('activeChat') || 'jon');
+            const [focusedStreamId, setFocusedStreamId] = useState(null);
+            const [isCinemaMode, setIsCinemaMode] = useState(false);
+            const [isSidebarOpen, setIsSidebarOpen] = useState(() => {
+                if (window.innerWidth < 1024) return false;
+                const saved = localStorage.getItem('isSidebarOpen');
+                return saved !== null ? saved === 'true' : true;
+            });
+            const [onlineStreamers, setOnlineStreamers] = useState(new Set());
+            const [chatWidth, setChatWidth] = useState(320); // Estado para largura do chat
+            
+            // Variável auxiliar para controlar quando os players podem começar a tocar Ads
+            const appIsReady = !isLoading;
+
+            useEffect(() => { localStorage.setItem('isGlobalMuted', isGlobalMuted); }, [isGlobalMuted]);
+            useEffect(() => { localStorage.setItem('activeChat', activeChat); }, [activeChat]);
+            useEffect(() => { localStorage.setItem('isSidebarOpen', isSidebarOpen); }, [isSidebarOpen]);
+
+            useEffect(() => { if (window.innerWidth < 1024) setIsSidebarOpen(false); }, []);
+            useEffect(() => { if(isCinemaMode) { document.body.classList.add('cinema-active'); } else { document.body.classList.remove('cinema-active'); } }, [isCinemaMode]);
+            
+            // Efeito para controlar a imagem de fundo
+            useEffect(() => {
+                if (!isLoading) {
+                    const bgElement = document.getElementById('bg-image-layer');
+                    if (bgElement) {
+                        setTimeout(() => bgElement.classList.add('visible'), 100);
+                    }
+                }
+            }, [isLoading]);
+            
+            // Função chamada quando a intro termina (ou é pulada)
+            const handleLoadingComplete = () => {
+                setIsLoading(false);
+                // Salva no localStorage para não mostrar novamente
+                localStorage.setItem('bdj_intro_seen', 'true');
+            };
+
+            const refreshStream = (id) => setStreamers(prev => prev.map(p => p.id === id ? {...p, key: Date.now()} : p));
+            const toggleFocus = (id) => { setFocusedStreamId(prev => prev === id ? null : id); if (focusedStreamId !== id) { setActiveChat(id); } };
+            const setChatAndFocus = (id) => { setActiveChat(id); if (window.innerWidth < 768) setIsSidebarOpen(true); };
+            const toggleLayoutMode = () => { if (focusedStreamId) { setFocusedStreamId(null); } else { setFocusedStreamId(streamers[0].id); } }
+
+            const handleStatusChange = useCallback((id, isOnline) => {
+                setOnlineStreamers(prev => {
+                    const newSet = new Set(prev);
+                    if (isOnline) newSet.add(id);
+                    else newSet.delete(id);
+                    return newSet;
+                });
+            }, []);
+
+            // Função para iniciar o redimensionamento do chat
+            const startResizing = useCallback((mouseDownEvent) => {
+                mouseDownEvent.preventDefault();
+                const startX = mouseDownEvent.clientX;
+                const startWidth = chatWidth;
+
+                const doDrag = (mouseMoveEvent) => {
+                    // Calcula nova largura: largura inicial + (posição inicial X - posição atual X)
+                    // (Subtrai porque estamos redimensionando da direita para a esquerda)
+                    const newWidth = startWidth + (startX - mouseMoveEvent.clientX);
+                    
+                    // Limita largura mínima e máxima
+                    if (newWidth > 240 && newWidth < 800) {
+                        setChatWidth(newWidth);
+                    }
+                };
+
+                const stopDrag = () => {
+                    document.removeEventListener('mousemove', doDrag);
+                    document.removeEventListener('mouseup', stopDrag);
+                    document.body.style.cursor = 'default';
+                    document.body.style.userSelect = 'auto'; 
+                };
+
+                document.addEventListener('mousemove', doDrag);
+                document.addEventListener('mouseup', stopDrag);
+                document.body.style.cursor = 'col-resize'; 
+                document.body.style.userSelect = 'none'; 
+            }, [chatWidth]);
+
+            const renderStatusText = () => {
+                const onlineCount = onlineStreamers.size;
+                const totalStreamers = streamers.length;
+
+                // Mobile specific styles vs Desktop
+                const containerClass = "flex flex-col items-end mr-2";
+                const labelClass = "text-[8px] md:text-[10px] font-tech font-bold text-bdjGreen/70 uppercase tracking-widest text-right";
+                const statusRowClass = "flex items-center gap-1.5 md:gap-2 justify-end";
+                const dotClass = "w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-bdjGreen shadow-[0_0_8px_#00FF40] animate-pulse";
+                const textClass = "text-[9px] md:text-xs font-bold text-white tracking-wider text-shadow text-right uppercase";
+
+                if (onlineCount === totalStreamers) {
+                    return (
+                        <div className={`${containerClass} animate-pulse`}>
+                            <span className={labelClass.replace('text-bdjGreen/70', 'text-bdjGreen')}>UM MILAGRE ACONTECEU</span>
+                            <span className={textClass}>O BDJ INTEIRO ESTÁ ONLINE!</span>
+                        </div>
+                    );
+                }
+                
+                if (onlineCount === 0) {
+                     return (
+                        <div className={containerClass}>
+                            <span className={labelClass.replace('text-bdjGreen/70', 'text-gray-500')}>System Status</span>
+                            <span className={textClass.replace('text-white', 'text-gray-400')}>TUDO OFFLINE</span>
+                        </div>
+                    );
+                }
+
+                let mainContent;
+                if (onlineCount === 1) {
+                    const id = [...onlineStreamers][0];
+                    const s = streamers.find(s => s.id === id);
+                    const displayNames = { jon: 'Jon', font: 'Font', mar: 'Marcove', jhow: 'Jhow' };
+                    const name = s ? (displayNames[s.id] || s.name) : "Alguém";
+                    // Using span for green color and added drop-shadow
+                    mainContent = <>Apenas o <span className="text-bdjGreen font-black drop-shadow-[0_0_8px_rgba(0,255,64,0.6)] animate-pulse">{name}</span> está online</>;
+                } else {
+                    mainContent = `Apenas ${onlineCount} estão online`;
+                }
+
+                return (
+                    <div className={containerClass}>
+                        <span className={labelClass}>São 4 Integrantes</span>
+                        <div className={statusRowClass}>
+                            <span className={dotClass}></span>
+                            <span className={textClass}>{mainContent}</span>
+                        </div>
+                    </div>
+                );
+            }
+
+            const renderContent = () => {
+                if (focusedStreamId) {
+                    const mainStream = streamers.find(s => s.id === focusedStreamId);
+                    const sideStreams = streamers.filter(s => s.id !== focusedStreamId);
+                    return (
+                        <div className="flex flex-col md:flex-row gap-4 h-full w-full items-center justify-center p-4 md:p-0">
+                            
+                            {/* Main Player Area */}
+                            <div className="flex-1 w-full max-w-[100%] flex flex-col items-center justify-center relative p-1"> {/* Added p-1 */}
+                                <div className="w-full aspect-video shadow-2xl relative">
+                                    <StreamPlayer 
+                                        key={mainStream.key} 
+                                        stream={mainStream} 
+                                        isGlobalMuted={isGlobalMuted} 
+                                        onRefresh={refreshStream} 
+                                        onToggleFocus={toggleFocus} 
+                                        isFocused={true} 
+                                        onSetChat={setChatAndFocus} 
+                                        isSide={false} 
+                                        isCinemaMode={isCinemaMode} 
+                                        onStatusChange={handleStatusChange}
+                                        appIsReady={appIsReady} 
+                                    />
+                                </div>
+                            </div>
+
+                            {/* Side Players Area */}
+                            <div className={`w-full md:w-80 flex flex-row md:flex-col gap-3 overflow-x-auto md:overflow-y-auto scrollbar-hide shrink-0 pb-2 md:pb-0 md:justify-center`} style={{maxHeight: '100%'}}>
+                                {sideStreams.map(s => (
+                                    <div key={s.id} className="w-64 md:w-full aspect-video shrink-0">
+                                        <StreamPlayer 
+                                            key={s.key} 
+                                            stream={s} 
+                                            isGlobalMuted={isGlobalMuted} 
+                                            onRefresh={refreshStream} 
+                                            onToggleFocus={toggleFocus} 
+                                            isFocused={false} 
+                                            onSetChat={setChatAndFocus} 
+                                            isSide={true} 
+                                            isCinemaMode={isCinemaMode} 
+                                            onStatusChange={handleStatusChange}
+                                            appIsReady={appIsReady} 
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    );
+                }
+                return (
+                    <div className={`grid grid-cols-1 md:grid-cols-2 ${isCinemaMode ? 'gap-0 h-full' : 'gap-4 md:gap-8 h-full pr-1'} w-full overflow-y-auto pb-20 md:pb-0`}>
+                        {streamers.map(s => <div key={s.id} className="w-full h-full min-h-[30vh]"><StreamPlayer key={s.key} stream={s} isGlobalMuted={isGlobalMuted} onRefresh={refreshStream} onToggleFocus={toggleFocus} isFocused={false} onSetChat={setChatAndFocus} isSide={false} isCinemaMode={isCinemaMode} onStatusChange={handleStatusChange} appIsReady={appIsReady} /></div>)}
+                    </div>
+                );
+            };
+
+            return (
+                <div className="flex flex-col h-screen font-sans overflow-hidden selection:bg-bdjGreen selection:text-black relative">
+                    <AnimatedBackground /> {/* Fundo Animado Adicionado */}
+                    {isLoading && <LoadingScreen onComplete={handleLoadingComplete} />}
+                    <AboutModal isOpen={showAbout} onClose={()=>setShowAbout(false)} />
+                    {!isCinemaMode && (
+                        <header className="h-16 md:h-20 cyber-border-bottom flex items-center px-4 md:px-8 justify-between z-40 relative flex-shrink-0 animate-fade-in" style={{animationDelay: '0.5s', opacity: 0, animationFillMode: 'forwards'}}>
+                            <div className="flex items-center gap-6"><BDJLogo /></div>
+                            <div className="flex items-center gap-4">
+                                <div className="block">
+                                    {renderStatusText()}
+                                </div>
+                                <div className="h-8 w-[1px] bg-bdjGreen/20 hidden md:block"></div>
+                                <button onClick={()=>setShowAbout(true)} className="w-9 h-9 md:w-10 md:h-10 flex items-center justify-center rounded-lg bg-surface border border-bdjGreen/20 hover:border-bdjGreen/50 text-white transition-all shadow-lg hover:bg-bdjGreen/10 hover:shadow-[0_0_10px_rgba(0,255,64,0.3)]" title="Sobre"><Icons.Info /></button>
+                            </div>
+                        </header>
+                    )}
+                    <Credits isSidebarOpen={isSidebarOpen} chatWidth={chatWidth} />
+                    <div className={`flex-1 flex overflow-hidden ${isCinemaMode ? 'p-0' : 'p-2 md:p-6 md:pt-4 gap-6'} animate-fade-in`} style={{animationDelay: '0.8s', opacity: 0, animationFillMode: 'forwards'}}>
+                        <main className="flex-1 transition-all duration-500 h-full relative max-w-[1600px] mx-auto w-full overflow-hidden">
+                            {renderContent()}
+                        </main>
+                        
+                        {/* Chat Overlay for Mobile / Sidebar for Desktop */}
+                        <aside 
+                            className={`
+                                fixed inset-0 z-50 w-full h-full bg-black/95 backdrop-blur-xl transition-transform duration-300 md:duration-0 
+                                md:relative md:bg-transparent md:backdrop-blur-none md:inset-auto md:z-0
+                                ${isSidebarOpen ? 'translate-x-0' : 'translate-x-full md:translate-x-0 md:w-0 md:opacity-0 md:overflow-hidden'}
+                                ${isCinemaMode ? 'md:rounded-none md:border-none' : 'md:glass-panel md:rounded-xl md:border md:border-bdjGreen/20 md:shadow-2xl'}
+                                flex flex-col
+                            `}
+                            style={{ 
+                                width: (window.innerWidth >= 768 && isSidebarOpen) ? `${chatWidth}px` : undefined 
+                            }}
+                        >
+                            {/* Alça de redimensionamento (Resize Handle) */}
+                            <div 
+                                className="hidden md:block absolute left-0 top-0 bottom-0 w-1.5 cursor-col-resize z-50 hover:bg-bdjGreen/50 active:bg-bdjGreen transition-colors"
+                                onMouseDown={startResizing}
+                            ></div>
+
+                            {/* Mobile Close Button */}
+                            <div className="md:hidden absolute top-2 right-2 z-50">
+                                <button onClick={() => setIsSidebarOpen(false)} className="bg-black/50 text-bdjGreen p-2 rounded-full border border-bdjGreen/30 backdrop-blur-md">
+                                    <Icons.X width={18} height={18} />
+                                </button>
+                            </div>
+
+                            {/* Consolidated Header with Streamer List */}
+                            <div className="flex items-center p-2 bg-bdjDark/95 border-b border-bdjGreen/20 md:rounded-t-xl overflow-x-auto scrollbar-hide pr-12 md:pr-2 pl-3 md:pl-3">
+                               {/* Ordenação: Online primeiro, Offline depois */}
+                               {[...streamers].sort((a, b) => {
+                                    const aOnline = onlineStreamers.has(a.id);
+                                    const bOnline = onlineStreamers.has(b.id);
+                                    // Se aOnline for true e bOnline false, a vem antes (-1).
+                                    // Se aOnline for false e bOnline true, b vem antes (1).
+                                    // Se iguais, mantém a ordem original (0).
+                                    if (aOnline && !bOnline) return -1;
+                                    if (!aOnline && bOnline) return 1;
+                                    return 0;
+                               }).map(s => (
+                                    <button 
+                                        key={s.id} 
+                                        onClick={()=>setActiveChat(s.id)} 
+                                        className={`
+                                            shrink-0 px-3 py-1.5 flex items-center gap-2 transition-all border rounded-lg mx-1 relative group
+                                            ${activeChat === s.id ? 'bg-bdjGreen/10 border-bdjGreen text-white shadow-[0_0_8px_rgba(0,255,64,0.15)]' : 'border-transparent text-gray-500 hover:text-bdjGreen/80 hover:bg-white/5'}
+                                        `} 
+                                        title={s.name}
+                                    >
+                                        <div className="relative">
+                                            <img 
+                                                src={getAvatar(s.id)} 
+                                                alt={s.name} 
+                                                className={`w-5 h-5 rounded-full object-cover border ${activeChat === s.id ? 'border-bdjGreen' : 'border-transparent grayscale'}`} 
+                                            />
+                                            {/* Status Dot Indicator */}
+                                            <div className={`absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full border border-black ${onlineStreamers.has(s.id) ? 'bg-bdjGreen shadow-[0_0_5px_#00FF40]' : 'bg-gray-600'}`}></div>
+                                        </div>
+                                        <span className={`text-[10px] font-bold uppercase tracking-wider ${activeChat === s.id ? 'text-bdjGreen' : ''}`}>
+                                            {s.name}
+                                        </span>
+                                    </button>
+                                ))}
+                            </div>
+                            
+                            <div className="flex-1 relative bg-[#0e0e10] md:rounded-b-xl overflow-hidden">
+                                <iframe 
+                                    src={`https://www.twitch.tv/embed/${streamers.find(s=>s.id===activeChat).name}/chat?parent=${window.location.hostname}&parent=localhost&darkpopout`} 
+                                    width="100%" 
+                                    height="100%" 
+                                    className="border-none w-full h-full"
+                                    sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-modals allow-forms"
+                                ></iframe>
+                            </div>
+                        </aside>
+                    </div>
+                    <FloatingControlBar isLoading={isLoading} isCinemaMode={isCinemaMode} toggleCinemaMode={() => setIsCinemaMode(!isCinemaMode)} isGlobalMuted={isGlobalMuted} toggleGlobalMute={() => setIsGlobalMuted(!isGlobalMuted)} sidebarOpen={isSidebarOpen} toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} layoutMode={focusedStreamId ? 'focus' : 'grid'} toggleLayoutMode={toggleLayoutMode} />
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
