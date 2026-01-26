@@ -436,7 +436,7 @@
         <div class="header">
             <div class="input-group">
                 <input type="text" id="channelInput" placeholder="Adicione o link do canal (Twitch/Kick/YouTube)">
-                <button onclick="addStream()">Adicionar Stream</button>
+                <button id="addButton">Adicionar Stream</button>
             </div>
             <div class="platform-note">💜 Twitch: twitch.tv/canal | 💚 Kick: kick.com/canal | ❤️ YouTube: youtube.com/watch?v=VIDEO_ID</div>
 
@@ -444,37 +444,37 @@
 
             <div class="control-buttons">
                 <div class="preset-buttons">
-                    <button class="preset-btn bdj" onclick="loadPreset('bdj')">BDJ</button>
-                    <button class="preset-btn" onclick="loadPreset('triploud')">Trip Loud</button>
+                    <button class="preset-btn bdj" id="bdjPreset">BDJ</button>
+                    <button class="preset-btn" id="triploudPreset">Trip Loud</button>
                 </div>
 
                 <div style="position: relative;">
-                    <button class="control-btn" onclick="toggleLayoutDropdown()">
+                    <button class="control-btn" id="layoutBtn">
                         📐 Layout
                     </button>
                     <div class="control-dropdown" id="layoutDropdown">
-                        <div class="dropdown-option" onclick="setLayoutFromDropdown(1)">1 Stream</div>
-                        <div class="dropdown-option" onclick="setLayoutFromDropdown(2)">2 Streams</div>
-                        <div class="dropdown-option" onclick="setLayoutFromDropdown(3)">3 Streams</div>
-                        <div class="dropdown-option" onclick="setLayoutFromDropdown(4)">4 Streams</div>
-                        <div class="dropdown-option" onclick="setLayoutFromDropdown(5)">5 Streams</div>
-                        <div class="dropdown-option" onclick="setLayoutFromDropdown(6)">6 Streams</div>
-                        <div class="dropdown-option" onclick="setLayoutFromDropdown(7)">7 Streams</div>
-                        <div class="dropdown-option" onclick="setLayoutFromDropdown(8)">8 Streams</div>
-                        <div class="dropdown-option" onclick="setLayoutFromDropdown(9)">9 Streams</div>
+                        <div class="dropdown-option" data-layout="1">1 Stream</div>
+                        <div class="dropdown-option" data-layout="2">2 Streams</div>
+                        <div class="dropdown-option" data-layout="3">3 Streams</div>
+                        <div class="dropdown-option" data-layout="4">4 Streams</div>
+                        <div class="dropdown-option" data-layout="5">5 Streams</div>
+                        <div class="dropdown-option" data-layout="6">6 Streams</div>
+                        <div class="dropdown-option" data-layout="7">7 Streams</div>
+                        <div class="dropdown-option" data-layout="8">8 Streams</div>
+                        <div class="dropdown-option" data-layout="9">9 Streams</div>
                     </div>
                 </div>
 
                 <div style="position: relative; display: none;" id="chatButtonContainer">
-                    <button class="control-btn" onclick="toggleChatDropdown()">
+                    <button class="control-btn" id="chatBtn">
                         💬 Chat
                     </button>
                     <div class="control-dropdown" id="chatDropdown">
-                        <div class="dropdown-option active" onclick="disableChatFromDropdown()">Sem Chat</div>
+                        <div class="dropdown-option active" data-chat="none">Sem Chat</div>
                     </div>
                 </div>
 
-                <button class="theme-toggle" onclick="toggleTheme()">
+                <button class="theme-toggle" id="themeBtn">
                     <span id="themeText">☀️ Modo Claro</span>
                 </button>
             </div>
@@ -495,130 +495,6 @@
         let selectedChatStream = 0;
         let draggedIndex = null;
         let isDarkMode = true;
-
-        function loadPreset(presetName) {
-            streams = [];
-            
-            if (presetName === 'bdj') {
-                streams = [
-                    { platform: 'twitch', channel: 'jonvlogs' },
-                    { platform: 'twitch', channel: 'marcove' },
-                    { platform: 'twitch', channel: 'fontinnelerj' },
-                    { platform: 'twitch', channel: 'jhowrj1' }
-                ];
-            } else if (presetName === 'triploud') {
-                streams = [
-                    { platform: 'twitch', channel: 'gabepeixe' },
-                    { platform: 'twitch', channel: 'loud_coringa' },
-                    { platform: 'twitch', channel: 'loud_brabox' }
-                ];
-            }
-            
-            selectedChatStream = 0;
-            showChat = false;
-            updateStreamsList();
-            updateChatDropdown();
-            updateStreamsGrid();
-        }
-
-        function toggleTheme() {
-            isDarkMode = !isDarkMode;
-            const body = document.body;
-            const themeText = document.getElementById('themeText');
-            
-            if (isDarkMode) {
-                body.classList.remove('light-mode');
-                themeText.textContent = '☀️ Modo Claro';
-            } else {
-                body.classList.add('light-mode');
-                themeText.textContent = '🌙 Modo Escuro';
-            }
-        }
-
-        function toggleLayoutDropdown() {
-            const dropdown = document.getElementById('layoutDropdown');
-            const chatDropdown = document.getElementById('chatDropdown');
-            chatDropdown.classList.remove('show');
-            dropdown.classList.toggle('show');
-        }
-
-        function toggleChatDropdown() {
-            const dropdown = document.getElementById('chatDropdown');
-            const layoutDropdown = document.getElementById('layoutDropdown');
-            layoutDropdown.classList.remove('show');
-            dropdown.classList.toggle('show');
-        }
-
-        function setLayoutFromDropdown(gridSize) {
-            currentGridSize = gridSize;
-            
-            const options = document.querySelectorAll('#layoutDropdown .dropdown-option');
-            options.forEach(opt => opt.classList.remove('active'));
-            event.target.classList.add('active');
-            
-            document.getElementById('layoutDropdown').classList.remove('show');
-            
-            updateChatDropdown();
-            updateStreamsGrid();
-        }
-
-        function disableChatFromDropdown() {
-            showChat = false;
-            
-            const options = document.querySelectorAll('#chatDropdown .dropdown-option');
-            options.forEach(opt => opt.classList.remove('active'));
-            event.target.classList.add('active');
-            
-            document.getElementById('chatDropdown').classList.remove('show');
-            updateChatOnly();
-        }
-
-        function selectChatStreamFromDropdown(index) {
-            selectedChatStream = index;
-            showChat = true;
-            
-            const options = document.querySelectorAll('#chatDropdown .dropdown-option');
-            options.forEach(opt => opt.classList.remove('active'));
-            event.target.classList.add('active');
-            
-            document.getElementById('chatDropdown').classList.remove('show');
-            updateChatOnly();
-        }
-
-        function updateChatDropdown() {
-            const chatDropdown = document.getElementById('chatDropdown');
-            const chatButtonContainer = document.getElementById('chatButtonContainer');
-            
-            if (streams.length === 0) {
-                chatButtonContainer.style.display = 'none';
-                return;
-            }
-            
-            chatButtonContainer.style.display = 'block';
-            
-            chatDropdown.innerHTML = `
-                <div class="dropdown-option ${!showChat ? 'active' : ''}" onclick="disableChatFromDropdown()">
-                    Sem Chat
-                </div>
-                ${streams.map((stream, index) => `
-                    <div class="dropdown-option ${showChat && selectedChatStream === index ? 'active' : ''}" 
-                            onclick="selectChatStreamFromDropdown(${index})">
-                        ${stream.channel} (${stream.platform.toUpperCase()})
-                    </div>
-                `).join('')}
-            `;
-        }
-
-        document.addEventListener('click', function(event) {
-            const layoutDropdown = document.getElementById('layoutDropdown');
-            const chatDropdown = document.getElementById('chatDropdown');
-            const layoutBtn = event.target.closest('.control-btn');
-            
-            if (!layoutBtn) {
-                layoutDropdown.classList.remove('show');
-                chatDropdown.classList.remove('show');
-            }
-        });
 
         function detectPlatform(input) {
             // YouTube
@@ -721,7 +597,7 @@
                         ${stream.platform.toUpperCase()}
                     </span>
                     <span>${stream.channel}</span>
-                    <button onclick="event.stopPropagation(); removeStream(${index})">×</button>
+                    <button onclick="removeStream(${index}); event.stopPropagation();">×</button>
                 </div>
             `).join('');
             
@@ -923,3 +799,178 @@
             } else {
                 cols = 3;
                 rows = Math.ceil(displayCount / 3);
+            }
+
+            if (!streamsGrid) {
+                streamsGrid = document.createElement('div');
+                streamsGrid.className = 'streams-grid';
+                mainContent.innerHTML = '';
+                mainContent.appendChild(streamsGrid);
+            }
+
+            streamsGrid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+            streamsGrid.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
+
+            const existingFrames = Array.from(streamsGrid.querySelectorAll('.stream-frame'));
+            
+            while (existingFrames.length > displayCount) {
+                existingFrames.pop().remove();
+            }
+
+            for (let i = 0; i < displayCount; i++) {
+                const stream = streams[i];
+                const playerUrl = getPlayerUrl(stream);
+                
+                if (existingFrames[i]) {
+                    const existingIframe = existingFrames[i].querySelector('iframe');
+                    if (existingIframe.src !== playerUrl) {
+                        existingIframe.src = playerUrl;
+                    }
+                } else {
+                    const newFrame = document.createElement('div');
+                    newFrame.className = 'stream-frame';
+                    newFrame.innerHTML = `<iframe src="${playerUrl}" allowfullscreen="true" allow="autoplay; fullscreen"></iframe>`;
+                    streamsGrid.appendChild(newFrame);
+                }
+            }
+
+            if (showChat && streams[selectedChatStream]) {
+                updateChatOnly();
+            }
+        }
+
+        function updateChatDropdown() {
+            const chatDropdown = document.getElementById('chatDropdown');
+            const chatButtonContainer = document.getElementById('chatButtonContainer');
+            
+            if (streams.length === 0) {
+                chatButtonContainer.style.display = 'none';
+                return;
+            }
+            
+            chatButtonContainer.style.display = 'block';
+            
+            chatDropdown.innerHTML = `
+                <div class="dropdown-option ${!showChat ? 'active' : ''}" data-chat="none">
+                    Sem Chat
+                </div>
+                ${streams.map((stream, index) => `
+                    <div class="dropdown-option ${showChat && selectedChatStream === index ? 'active' : ''}" 
+                         data-chat="${index}">
+                        ${stream.channel} (${stream.platform.toUpperCase()})
+                    </div>
+                `).join('')}
+            `;
+
+            chatDropdown.querySelectorAll('.dropdown-option').forEach(opt => {
+                opt.addEventListener('click', function() {
+                    const chatValue = this.getAttribute('data-chat');
+                    if (chatValue === 'none') {
+                        showChat = false;
+                    } else {
+                        selectedChatStream = parseInt(chatValue);
+                        showChat = true;
+                    }
+                    
+                    chatDropdown.querySelectorAll('.dropdown-option').forEach(o => o.classList.remove('active'));
+                    this.classList.add('active');
+                    chatDropdown.classList.remove('show');
+                    updateChatOnly();
+                });
+            });
+        }
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Botão adicionar
+            document.getElementById('addButton').addEventListener('click', addStream);
+            
+            // Enter no input
+            document.getElementById('channelInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    addStream();
+                }
+            });
+
+            // Presets
+            document.getElementById('bdjPreset').addEventListener('click', function() {
+                streams = [
+                    { platform: 'twitch', channel: 'jonvlogs' },
+                    { platform: 'twitch', channel: 'marcove' },
+                    { platform: 'twitch', channel: 'fontinnelerj' },
+                    { platform: 'twitch', channel: 'jhowrj1' }
+                ];
+                selectedChatStream = 0;
+                showChat = false;
+                updateStreamsList();
+                updateChatDropdown();
+                updateStreamsGrid();
+            });
+
+            document.getElementById('triploudPreset').addEventListener('click', function() {
+                streams = [
+                    { platform: 'twitch', channel: 'gabepeixe' },
+                    { platform: 'twitch', channel: 'loud_coringa' },
+                    { platform: 'twitch', channel: 'loud_brabox' }
+                ];
+                selectedChatStream = 0;
+                showChat = false;
+                updateStreamsList();
+                updateChatDropdown();
+                updateStreamsGrid();
+            });
+
+            // Layout dropdown
+            document.getElementById('layoutBtn').addEventListener('click', function() {
+                document.getElementById('layoutDropdown').classList.toggle('show');
+                document.getElementById('chatDropdown').classList.remove('show');
+            });
+
+            document.querySelectorAll('#layoutDropdown .dropdown-option').forEach(opt => {
+                opt.addEventListener('click', function() {
+                    currentGridSize = parseInt(this.getAttribute('data-layout'));
+                    document.querySelectorAll('#layoutDropdown .dropdown-option').forEach(o => o.classList.remove('active'));
+                    this.classList.add('active');
+                    document.getElementById('layoutDropdown').classList.remove('show');
+                    updateChatDropdown();
+                    updateStreamsGrid();
+                });
+            });
+
+            // Chat dropdown
+            document.getElementById('chatBtn').addEventListener('click', function() {
+                document.getElementById('chatDropdown').classList.toggle('show');
+                document.getElementById('layoutDropdown').classList.remove('show');
+            });
+
+            // Theme toggle
+            document.getElementById('themeBtn').addEventListener('click', function() {
+                isDarkMode = !isDarkMode;
+                const body = document.body;
+                const themeText = document.getElementById('themeText');
+                
+                if (isDarkMode) {
+                    body.classList.remove('light-mode');
+                    themeText.textContent = '☀️ Modo Claro';
+                } else {
+                    body.classList.add('light-mode');
+                    themeText.textContent = '🌙 Modo Escuro';
+                }
+            });
+
+            // Fechar dropdowns ao clicar fora
+            document.addEventListener('click', function(event) {
+                if (!event.target.closest('.control-btn')) {
+                    document.getElementById('layoutDropdown').classList.remove('show');
+                    document.getElementById('chatDropdown').classList.remove('show');
+                }
+            });
+
+            // Inicializar
+            updateStreamsList();
+            updateChatDropdown();
+            updateStreamsGrid();
+        });
+    </script>
+</body>
+</html>
