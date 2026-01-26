@@ -971,6 +971,62 @@
             updateChatDropdown();
             updateStreamsGrid();
         });
+    
+    // ====================================
+        // PROTEÇÃO DO CÓDIGO FONTE
+        // ====================================
+        
+        // Desabilitar clique direito (sem alerta)
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        // Bloquear teclas de atalho (sem alertas)
+        document.addEventListener('keydown', function(e) {
+            // F12
+            if (e.keyCode === 123) {
+                e.preventDefault();
+                return false;
+            }
+            
+            // Ctrl+Shift+I (Inspecionar)
+            if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
+                e.preventDefault();
+                return false;
+            }
+            
+            // Ctrl+Shift+J (Console)
+            if (e.ctrlKey && e.shiftKey && e.keyCode === 74) {
+                e.preventDefault();
+                return false;
+            }
+            
+            // Ctrl+U (Ver código-fonte)
+            if (e.ctrlKey && e.keyCode === 85) {
+                e.preventDefault();
+                return false;
+            }
+            
+            // Ctrl+S (Salvar página)
+            if (e.ctrlKey && e.keyCode === 83) {
+                e.preventDefault();
+                return false;
+            }
+            
+            // Ctrl+Shift+C (Inspecionar elemento)
+            if (e.ctrlKey && e.shiftKey && e.keyCode === 67) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+          // Desabilitar arrastar texto/imagens
+        document.addEventListener('dragstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
     </script>
 </body>
 </html>
+
