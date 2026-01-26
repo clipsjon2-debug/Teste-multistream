@@ -667,7 +667,8 @@
         }
 
         function addStream() {
-            let input = document.getElementById('channelInput').value.trim();
+            const inputElement = document.getElementById('channelInput');
+            const input = inputElement.value.trim();
 
             if (!input) {
                 alert('Por favor, digite o nome do canal ou cole o link');
@@ -692,7 +693,7 @@
             }
 
             streams.push(detected);
-            document.getElementById('channelInput').value = '';
+            inputElement.value = '';
             updateStreamsList();
             updateChatDropdown();
             updateStreamsGrid();
