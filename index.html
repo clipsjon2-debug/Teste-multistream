@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Multistream</title>
+    <!-- Favicon com emoji 📡 -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text y='14'>📡</text></svg>" type="image/svg+xml">
+    
     <style>
         * {
             margin: 0;
@@ -723,33 +726,8 @@
         }
 
         function reorderStreamsVisually(fromIndex, toIndex) {
-            const mainContent = document.getElementById('mainContent');
-            const streamsGrid = mainContent.querySelector('.streams-grid');
-            
-            if (!streamsGrid) return;
-            
-            const frames = Array.from(streamsGrid.querySelectorAll('.stream-frame'));
-            const displayCount = Math.min(currentGridSize, streams.length);
-            
-            if (fromIndex >= displayCount || toIndex >= displayCount) {
-                return;
-            }
-            
-            const draggedFrame = frames[fromIndex];
-            draggedFrame.remove();
-            
-            if (toIndex === 0) {
-                streamsGrid.insertBefore(draggedFrame, frames[0]);
-            } else if (toIndex >= frames.length - 1) {
-                streamsGrid.appendChild(draggedFrame);
-            } else {
-                const targetFrame = frames[toIndex];
-                if (fromIndex < toIndex) {
-                    streamsGrid.insertBefore(draggedFrame, targetFrame.nextSibling);
-                } else {
-                    streamsGrid.insertBefore(draggedFrame, targetFrame);
-                }
-            }
+            // Simplesmente atualizar a grid inteira para refletir a nova ordem
+            updateStreamsGrid();
         }
 
         function updateStreamsGrid() {
@@ -776,8 +754,8 @@
                 cols = 2;
                 rows = 1;
             } else if (displayCount === 3) {
-                cols = 3;
-                rows = 1;
+                cols = 2;
+                rows = 2;
             } else if (displayCount === 4) {
                 cols = 2;
                 rows = 2;
@@ -821,14 +799,22 @@
                 const stream = streams[i];
                 const playerUrl = getPlayerUrl(stream);
                 
+                let frameStyle = '';
+                if (displayCount === 3 && i === 0) {
+                    // Primeira stream ocupa as 2 colunas da primeira linha
+                    frameStyle = 'grid-column: 1 / 3; grid-row: 1;';
+                }
+                
                 if (existingFrames[i]) {
                     const existingIframe = existingFrames[i].querySelector('iframe');
                     if (existingIframe.src !== playerUrl) {
                         existingIframe.src = playerUrl;
                     }
+                    existingFrames[i].style.cssText = frameStyle;
                 } else {
                     const newFrame = document.createElement('div');
                     newFrame.className = 'stream-frame';
+                    newFrame.style.cssText = frameStyle;
                     newFrame.innerHTML = `<iframe src="${playerUrl}" allowfullscreen="true" allow="autoplay; fullscreen"></iframe>`;
                     streamsGrid.appendChild(newFrame);
                 }
@@ -1021,12 +1007,6 @@
             }
         });
 
-          // Desabilitar arrastar texto/imagens
-        document.addEventListener('dragstart', function(e) {
-            e.preventDefault();
-            return false;
-        });
     </script>
 </body>
 </html>
-
